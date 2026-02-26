@@ -7,6 +7,10 @@ export default defineConfig({
   server: {
     host: true, // allows access from Docker container
     port: 5173,
+    watch: {
+      usePolling: true,
+      interval: 300
+    },
 
     proxy: {
       "/api": {

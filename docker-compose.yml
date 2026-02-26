@@ -26,4 +26,7 @@ services:
     ports:
       - "5173:5173"
     depends_on:
-      - backend  
+      - backend 
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
