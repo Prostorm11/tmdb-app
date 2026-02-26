@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    working_dir: /app
+    volumes:
+      - ./backend/app:/app
+      - ./backend/docker-entrypoint.sh:/docker-entrypoint.sh
+    ports:
+      - "8080:8000"
+    environment:
+      APP_ENV: dev
+      TMDB_API_KEY: ${TMDB_API_KEY}
+      TMDB_BASE_URL: ${TMDB_BASE_URL}
+    command: ["sh", "/docker-entrypoint.sh"]
