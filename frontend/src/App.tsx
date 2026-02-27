@@ -2,6 +2,7 @@ import "./App.css";
 import Tabs from "./components/Tabs";
 import MediaGrid from "./components/MediaGrid";
 import { useMediaContext } from "./context/MediaContext";
+import { FaSpinner } from "react-icons/fa";
 
 export default function App() {
   const {
@@ -28,10 +29,19 @@ export default function App() {
 
       <Tabs active={tab} onChange={setTab} />
 
-      {isLoading && <div className="state">Loading…</div>}
+      {isLoading && (
+        <div className="loading-container">
+          <FaSpinner className="icon-spinner" />
+          <p className="loading-text">
+            Loading {tab === "movies" ? "movies" : "TV shows"}...
+          </p>
+        </div>
+      )}
       {currentError && <div className="state error">{currentError}</div>}
 
-      {!isLoading && !currentError && items && <MediaGrid tab={tab} items={items} />}
+      {!isLoading && !currentError && items && (
+        <MediaGrid tab={tab} items={items} />
+      )}
 
       {!isLoading && !currentError && items && items.length === 0 && (
         <div className="state">No results.</div>

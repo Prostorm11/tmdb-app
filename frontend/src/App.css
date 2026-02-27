@@ -202,3 +202,33 @@ html, body {
 .state.error {
   color: #ff6b6b;
 }
+
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1rem;
+  min-height: 40vh;
+}
+
+.icon-spinner {
+  font-size: 3.5rem;
+  color: #646cff;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-text {
+  font-size: 1.4rem;
+  color: #888;
+  margin: 0;
+}
+
+/* same keyframes as above */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

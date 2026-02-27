@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./MediaDetail.css";
 import type { MediaDetailItem } from "../api/tmdb";
+import { FaSpinner } from "react-icons/fa";
 
 export default function MediaDetail() {
   const { type, id } = useParams<{ type: "movie" | "tv"; id: string }>();
@@ -38,7 +39,13 @@ export default function MediaDetail() {
     fetchDetail();
   }, [type, id]);
 
-  if (loading) return <div className="detail-loading">Loading...</div>;
+  if (loading) return <div className="detail-loading">
+    
+    <FaSpinner className="icon-spinner" />
+    <p className="loading-text">
+            Loading {type === "movie" ? "movies" : "TV shows"}...
+          </p>
+    </div>;
   if (error) return <div className="detail-error">{error}</div>;
   if (!item) return <div className="detail-not-found">Not found</div>;
 
