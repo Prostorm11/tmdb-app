@@ -1,54 +1,23 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import Tabs, { type Tab } from "./components/Tabs";
+import Tabs from "./components/Tabs";
 import MediaGrid from "./components/MediaGrid";
-import {
-  fetchTopRatedMovies,
-  fetchTopRatedTv,
-  type MovieItem,
-  type TvItem,
-} from "./api/tmdb";
+import { useMediaContext } from "./context/MediaContext";
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>("movies");
-  const [movies, setMovies] = useState<MovieItem[] | null>(null);
-  const [tv, setTv] = useState<TvItem[] | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function run() {
-      setError("");
-
-      const alreadyLoaded = tab === "movies" ? movies !== null : tv !== null;
-      if (alreadyLoaded) return;
-
-      setLoading(true);
-      try {
-        if (tab === "movies") {
-          const data = await fetchTopRatedMovies();
-          if (!cancelled) setMovies(data);
-        } else {
-          const data = await fetchTopRatedTv();
-          if (!cancelled) setTv(data);
-        }
-      } catch (e) {
-        const msg = e instanceof Error ? e.message : String(e);
-        if (!cancelled) setError(`Failed to load ${tab}. ${msg}`);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    run();
-    return () => {
-      cancelled = true;
-    };
-  }, [tab, movies, tv]);
+  const {
+    tab,
+    setTab,
+    movies,
+    tv,
+    moviesLoading,
+    tvLoading,
+    moviesError,
+    tvError,
+  } = useMediaContext();
 
   const items = tab === "movies" ? movies : tv;
+  const isLoading = tab === "movies" ? moviesLoading : tvLoading;
+  const currentError = tab === "movies" ? moviesError : tvError;
 
   return (
     <div className="page">
@@ -59,12 +28,12 @@ export default function App() {
 
       <Tabs active={tab} onChange={setTab} />
 
-      {loading && <div className="state">Loading…</div>}
-      {error && <div className="state error">{error}</div>}
+      {isLoading && <div className="state">Loading…</div>}
+      {currentError && <div className="state error">{currentError}</div>}
 
-      {!loading && !error && items && <MediaGrid tab={tab} items={items} />}
+      {!isLoading && !currentError && items && <MediaGrid tab={tab} items={items} />}
 
-      {!loading && !error && items && items.length === 0 && (
+      {!isLoading && !currentError && items && items.length === 0 && (
         <div className="state">No results.</div>
       )}
     </div>

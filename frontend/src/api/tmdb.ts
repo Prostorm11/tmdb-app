@@ -16,6 +16,24 @@ export type TvItem = {
   overview: string;
 };
 
+export type MediaDetailItem = {
+  id: number;
+  title?: string;               // movie only
+  name?: string;                // tv only
+  poster: string | null;
+  backdrop: string | null;
+  rating: number | null;
+  date: string | null;
+  overview: string;
+  tagline?: string;
+  genres: string[];
+  runtime?: string;             // e.g. "142 min" or "45 min/ep"
+  number_of_seasons?: number;   // tv only
+  number_of_episodes?: number;  // tv only
+  status?: string;
+  // You can easily add more later: homepage, budget, etc.
+};
+
 type ApiResponse<T> = {
   page?: number;
   results: T[];
@@ -35,4 +53,16 @@ export async function fetchTopRatedMovies(): Promise<MovieItem[]> {
 export async function fetchTopRatedTv(): Promise<TvItem[]> {
   const data = await getJson<ApiResponse<TvItem>>("/api/tv/top-rated");
   return data.results;
+}
+
+// ── New detail fetchers ────────────────────────────────────────────────
+
+export async function fetchMovieDetail(id: number): Promise<MediaDetailItem> {
+  const data = await getJson<MediaDetailItem>(`/api/movies/${id}`);
+  return data;
+}
+
+export async function fetchTvDetail(id: number): Promise<MediaDetailItem> {
+  const data = await getJson<MediaDetailItem>(`/api/tv/${id}`);
+  return data;
 }
