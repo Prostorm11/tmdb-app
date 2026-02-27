@@ -31,7 +31,7 @@ export type MediaDetailItem = {
   number_of_seasons?: number;   // tv only
   number_of_episodes?: number;  // tv only
   status?: string;
-  // You can easily add more later: homepage, budget, etc.
+
 };
 
 type ApiResponse<T> = {
@@ -55,7 +55,7 @@ export async function fetchTopRatedTv(): Promise<TvItem[]> {
   return data.results;
 }
 
-// ── New detail fetchers ────────────────────────────────────────────────
+
 
 export async function fetchMovieDetail(id: number): Promise<MediaDetailItem> {
   const data = await getJson<MediaDetailItem>(`/api/movies/${id}`);

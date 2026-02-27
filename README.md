@@ -6,10 +6,10 @@ Full-Stack Movie and TV Explorer built with Symfony, React and Docker
 
 ---
 
-<p align="center">
+<h2 align="center">
 <a href="#english">English</a> |
 <a href="#français">Français</a>
-</p>
+</h2>
 
 ---
 
