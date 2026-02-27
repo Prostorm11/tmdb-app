@@ -19,26 +19,26 @@ export default function MediaCard({
   const title = getTitle(tab, item);
 
   return (
-    <div
-      className="card"
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onClick={onClick ? () => onClick(item.id) : undefined}
-      onKeyDown={
-        onClick
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick(item.id);
-            }
-          : undefined
-      }
-    >
-      <div className="posterWrap">
-        {item.poster ? (
-          <img className="poster" src={item.poster} alt={title} />
-        ) : (
-          <div className="poster placeholder">No image</div>
-        )}
-      </div>
+   <div
+  className="card group"          
+  role={onClick ? "button" : undefined}
+  tabIndex={onClick ? 0 : undefined}
+  onClick={onClick ? () => onClick(item.id) : undefined}
+  onKeyDown={
+    onClick
+      ? (e) => {
+          if (e.key === "Enter" || e.key === " ") onClick(item.id);
+        }
+      : undefined
+  }
+>
+  <div className="posterWrap">
+    {item.poster ? (
+      <img className="poster" src={item.poster} alt={title} />
+    ) : (
+      <div className="poster placeholder">No image</div>
+    )}
+  </div>
 
       <div className="cardBody">
         <div className="titleRow">
