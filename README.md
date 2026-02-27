@@ -107,7 +107,7 @@ Do not commit real API keys.
 ### Clone repository
 
 ```
-git clone https://github.com/<your-username>/tmdb-app.git
+git clone https://github.com/Prostorm11/tmdb-app.git
 cd tmdb-app
 ```
 
@@ -219,6 +219,15 @@ Rebuild containers:
 ```
 docker compose up --build
 ```
+Docker va automatiquement :
+
+- Construire le backend Symfony
+- Installer les dépendances Composer
+- Construire le frontend React
+- Installer les dépendances npm
+- Démarrer les deux services
+
+---
 
 View logs:
 
@@ -340,7 +349,7 @@ Ne jamais publier de vraies clés API.
 Cloner le dépôt :
 
 ```
-git clone https://github.com/<your-username>/tmdb-app.git
+git clone https://github.com/Prostorm11/tmdb-app.git
 cd tmdb-app
 ```
 
